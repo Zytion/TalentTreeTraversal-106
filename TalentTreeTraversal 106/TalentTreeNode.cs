@@ -22,13 +22,11 @@ namespace TalentTreeTraversal_106
 		/// <summary> Right child node </summary>
 		public TalentTreeNode RightNode { get { return rightNode; } set { rightNode = value; } }
 
-		public TalentTreeNode()
-		{
-			abilityName = "";
-			learnedTalent = false;
-			leftNode = null;
-			rightNode = null;
-		}
+		/// <summary>
+		/// Initalizes an ability that is either learned or not.
+		/// </summary>
+		/// <param name="ability"></param>
+		/// <param name="learned"></param>
 		public TalentTreeNode(string ability, bool learned)
 		{
 			abilityName = ability;
@@ -36,12 +34,56 @@ namespace TalentTreeTraversal_106
 			leftNode = null;
 			rightNode = null;
 		}
+		/// <summary>
+		/// Initalizes an ability that is either learned or not. 
+		/// The node has two child nodes that can be connected to it.
+		/// </summary>
+		/// <param name="ability"></param>
+		/// <param name="learned"></param>
+		/// <param name="leftNode"></param>
+		/// <param name="rightNode"></param>
 		public TalentTreeNode(string ability, bool learned, TalentTreeNode leftNode, TalentTreeNode rightNode)
 		{
 			abilityName = ability;
 			learnedTalent = learned;
 			this.leftNode = leftNode;
 			this.rightNode = rightNode;
+		}
+		/// <summary> Prints all of the abilities in the tree using “in order” traversal </summary>
+		public void ListAllAbilities()
+		{
+			if(leftNode != null)
+				leftNode.ListAllAbilities();
+			Console.Write(abilityName + ", ");
+			if(rightNode != null)
+				rightNode.ListAllAbilities();
+		}
+		/// <summary> Prints out which abilities the player know </summary>
+		public void ListKnownAblilites()
+		{
+			if (learnedTalent)
+			{
+				Console.Write(abilityName + ", ");
+				if (leftNode != null)
+					leftNode.ListKnownAblilites();
+				if (rightNode != null)
+					rightNode.ListKnownAblilites();
+			}
+		}
+		/// <summary> Prints the abilities the player could learn next </summary>
+		public void ListPossibleAbilites()
+		{
+			if (!learnedTalent)
+			{
+				Console.Write(abilityName + ", ");
+			}
+			else
+			{
+				if (leftNode != null)
+					leftNode.ListPossibleAbilites();
+				if (rightNode != null)
+					rightNode.ListPossibleAbilites();
+			}
 		}
 	}
 }
